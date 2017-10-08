@@ -1,4 +1,21 @@
 {
-  "name": "",
-  "version": ""
+  "name": "BoilerplateBulma",
+  "version": "0.0.1",
+  "author": "Sobchenyuk Andrey <cobchenyuk@gmail.com> (https://www.facebook.com/andreysobchenyuk)",
+  "description": "HTML5 Boilerplate & Bulma.io",
+  "license": "MIT",
+  "main": "index.js",
+  "bugs": {
+    "url": "https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io"
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "browser-sync": "*",
+    "gulp-stylus": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-plumber": "*",
+    "gulp-babel": "*"
+  },
+  "scripts": {
+  }
 }
