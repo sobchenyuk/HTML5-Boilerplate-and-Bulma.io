@@ -1,21 +1,27 @@
 {
-  "name": "BoilerplateBulma",
+  "name": "boilerplatebulma",
   "version": "0.0.1",
-  "author": "Sobchenyuk Andrey <cobchenyuk@gmail.com> (https://www.facebook.com/andreysobchenyuk)",
   "description": "HTML5 Boilerplate & Bulma.io",
-  "license": "MIT",
-  "main": "index.js",
-  "bugs": {
-    "url": "https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io"
-  },
-  "devDependencies": {
-    "gulp": "*",
-    "browser-sync": "*",
-    "gulp-stylus": "*",
-    "gulp-autoprefixer": "*",
-    "gulp-plumber": "*",
-    "gulp-babel": "*"
-  },
+  "main": "gulpfile.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io.git"
+  },
+  "author": "Sobchenyuk Andrey <cobchenyuk@gmail.com> (https://www.facebook.com/andreysobchenyuk)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io/issues"
+  },
+  "homepage": "https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io#readme",
+  "dependencies": {
+    "browser-sync": "^2.18.13",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-babel": "^7.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-stylus": "^2.6.0"
   }
 }
