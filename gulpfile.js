@@ -3,7 +3,6 @@ var gulp = require('gulp'),
     stylus = require('gulp-stylus'),
     autoprefixer = require('gulp-autoprefixer'),
     plumber = require('gulp-plumber');
-const babel = require('gulp-babel');
 
 var path = {
  app : {
@@ -23,14 +22,6 @@ gulp.task('browser-sync', function() {
    gulp.watch("index.html").on('change', browserSync.reload);
    gulp.watch("js/init.js").on('change', browserSync.reload);
 });
-
-gulp.task('vue', () =>
-    gulp.src('vue/app.js')
-    .pipe(babel({
-        presets: ['es2015']
-    }))
-    .pipe(gulp.dest('js/init.js'))
-);
 
 gulp.task('stylus', function(){
     gulp.src(path.app.styl)
