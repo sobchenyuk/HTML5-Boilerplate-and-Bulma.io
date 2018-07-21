@@ -4,7 +4,7 @@
   "description": "HTML5 Boilerplate & Bulma.io",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run": "gulp default"
   },
   "repository": {
     "type": "git",
