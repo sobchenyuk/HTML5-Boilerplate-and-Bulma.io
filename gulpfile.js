@@ -1,30 +1,70 @@
-var gulp = require('gulp'),
-    browserSync = require('browser-sync').create(),
-    stylus = require('gulp-stylus'),
-    autoprefixer = require('gulp-autoprefixer'),
-    plumber = require('gulp-plumber');
+// gulp  component
+const   gulp = require('gulp');
+const   browserSync = require('browser-sync');
+const   stylus = require('gulp-stylus');
+const   autoprefixer = require('gulp-autoprefixer');
+const   plumber = require('gulp-plumber');
+const   browserify = require('browserify');
+const   babelify = require('babelify');
+const   source = require('vinyl-source-stream');
 
-var path = {
- app : {
-  css: "css/",
-  styl: "stylus/master.styl"
- }
+// gulp settings
+const   livereliad = browserSync.create();
+const   reload = livereliad.reload;
+const path = {
+    app : {
+      styl: './src/stylus/',
+      js: './src/js/'
+    },
+    dist: {
+      js: './js/',
+      css: './css/',
+    }
 }
 
+// name tasks
+const BROWSER_SYNC = 'browser-sync';
+const JAVA_SCRIPT = 'javascript';
+const STYLUS = 'stylus';
+const WATCHER = 'watcher';
+const DEFAULT = 'default';
+
+// type of file project
+const TYPE_FILE = '.js';
+
+// gulp TASKS
+
 // Static server
-gulp.task('browser-sync', function() {
-    browserSync.init({
+gulp.task(BROWSER_SYNC, () => {
+  livereliad.init({
         server: {
             baseDir: "./"
         },
         notify: false
     });
-   gulp.watch("index.html").on('change', browserSync.reload);
-   gulp.watch("js/init.js").on('change', browserSync.reload);
+   gulp.watch("index.html").on('change', reload);
 });
 
-gulp.task('stylus', function(){
-    gulp.src(path.app.styl)
+// script
+gulp.task(JAVA_SCRIPT, () => {
+  browserify({entries: `${path.app.js}app${TYPE_FILE}`, extensions: [TYPE_FILE], debug: true})
+  .transform(babelify,{
+    presets: ['@babel/env'],
+    plugins: [
+      "syntax-class-properties",
+      "transform-class-properties"
+  ]
+  })
+  .bundle()
+  .pipe(plumber())
+  .pipe(source('bundle.js'))
+  .pipe(gulp.dest(`${path.dist.js}`))
+  .pipe(livereliad.stream({once: true}));
+});
+
+// stylus
+gulp.task(STYLUS, () => {
+    gulp.src(`${path.app.styl}master.styl`)
         .pipe(plumber())
         .pipe(stylus())
         .pipe(autoprefixer({
@@ -41,12 +81,22 @@ gulp.task('stylus', function(){
             ],
             cascade: false
         }))
-        .pipe(gulp.dest(path.app.css))
-        .pipe(browserSync.stream({once: true}));
+        .pipe(gulp.dest(path.dist.css))
+        .pipe(livereliad.stream({once: true}));
 });
 
-gulp.task('watcher',function(){
-    gulp.watch('stylus/**/*.styl', ['stylus']);
+// watcher
+gulp.task(WATCHER, () => {
+    gulp.watch(`${path.app.js}/**/*.js`, [JAVA_SCRIPT]);
+    gulp.watch(`${path.app.styl}/**/*.styl`, [STYLUS]);
 });
 
-gulp.task('default', ['watcher', 'browser-sync']);
+gulp.task(
+  DEFAULT,
+   [
+      WATCHER,
+      BROWSER_SYNC,
+      JAVA_SCRIPT,
+    ]
+);
+

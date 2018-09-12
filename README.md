@@ -1,7 +1,6 @@
-## HTML5 Boilerplate &amp; Bulma.io
+## HTML5 Boilerplate &amp; Bulma.io NEW RELASE
 
 [![N|Solid](https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io/blob/master/HTML5-Boilerplate-and-Bulma.io.png)](https://vk.com/bulmaio)
-
 
 # Installation
 
@@ -11,18 +10,21 @@ $ cd HTML5-Boilerplate-and-Bulma.io.git
 $ npm install
 ```
 
-# Gulp
+# Gulp 
 
 ```sh
-$ gulp default
+$ npm run dev
 ```
 
 ## gulpfile.js
 
 ```sh
-var gulp = require('gulp'),
-    browserSync = require('browser-sync').create(),
-    stylus = require('gulp-stylus'),
-    autoprefixer = require('gulp-autoprefixer'),
-    plumber = require('gulp-plumber');
+const   gulp = require('gulp');
+const   browserSync = require('browser-sync');
+const   stylus = require('gulp-stylus');
+const   autoprefixer = require('gulp-autoprefixer');
+const   plumber = require('gulp-plumber');
+const   browserify = require('browserify');
+const   babelify = require('babelify');
+const   source = require('vinyl-source-stream');
 ```
