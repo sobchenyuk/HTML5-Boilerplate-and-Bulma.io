@@ -4,7 +4,7 @@
   "description": "HTML5 Boilerplate & Bulma.io",
   "main": "gulpfile.js",
   "scripts": {
-    "run": "gulp default"
+    "dev": "gulp default"
   },
   "repository": {
     "type": "git",
@@ -17,11 +17,24 @@
   },
   "homepage": "https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io#readme",
   "dependencies": {
-    "browser-sync": "^2.18.13",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.0.0",
-    "gulp-babel": "^7.0.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-stylus": "^2.6.0"
+    "babel-plugin-syntax-class-properties": "^6.13.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babelify": "^10.0.0",
+    "browser-sync": "^2.24.7",
+    "browserify": "^16.2.2",
+    "bulma": "^0.7.1",
+    "gulp-autoprefixer": "^4.1.0",
+    "gulp-cli": "^2.0.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-requirejs": "^1.1.1",
+    "gulp-stylus": "^2.7.0",
+    "normalize.css": "^8.0.0",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.1",
+    "@babel/preset-env": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "gulp": "^3.9.1"
   }
 }
