@@ -6,7 +6,7 @@
 
 ```sh
 $ git clone https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io.git
-$ cd HTML5-Boilerplate-and-Bulma.io.git
+$ cd HTML5-Boilerplate-and-Bulma.io
 $ npm install
 ```
 
