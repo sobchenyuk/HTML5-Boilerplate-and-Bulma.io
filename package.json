@@ -29,7 +29,8 @@
     "gulp-requirejs": "^1.1.1",
     "gulp-stylus": "^2.7.0",
     "normalize.css": "^8.0.0",
-    "vinyl-source-stream": "^2.0.0"
+    "vinyl-source-stream": "^2.0.0",
+    "gulp-html-extend": "^1.1.6"
   },
   "devDependencies": {
     "@babel/core": "^7.0.1",
