@@ -28,3 +28,5 @@ const   browserify = require('browserify');
 const   babelify = require('babelify');
 const   source = require('vinyl-source-stream');
 ```
+
+## gulp-html-extend
