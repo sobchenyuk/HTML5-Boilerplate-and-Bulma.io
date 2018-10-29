@@ -96,6 +96,7 @@ gulp.task(
    [
       WATCHER,
       BROWSER_SYNC,
+      STYLUS,
       JAVA_SCRIPT,
     ]
 );
