@@ -24,10 +24,12 @@
     "browserify": "^16.2.2",
     "bulma": "^0.7.1",
     "gulp-autoprefixer": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.4",
     "gulp-cli": "^2.0.1",
     "gulp-plumber": "^1.2.0",
     "gulp-requirejs": "^1.1.1",
     "gulp-stylus": "^2.7.0",
+    "gulp-watch": "^5.0.1",
     "normalize.css": "^8.0.0",
     "vinyl-source-stream": "^2.0.0",
     "gulp-html-extend": "^1.1.6"

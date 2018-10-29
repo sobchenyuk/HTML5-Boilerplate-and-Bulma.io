@@ -7,6 +7,8 @@ const   plumber = require('gulp-plumber');
 const   browserify = require('browserify');
 const   babelify = require('babelify');
 const   source = require('vinyl-source-stream');
+const   watch = require('gulp-watch');
+const   sourcemaps = require('gulp-sourcemaps');
 
 // gulp settings
 const   livereliad = browserSync.create();
@@ -20,7 +22,7 @@ const path = {
       js: './js/',
       css: './css/',
     }
-}
+};
 
 // name tasks
 const BROWSER_SYNC = 'browser-sync';
@@ -28,9 +30,6 @@ const JAVA_SCRIPT = 'javascript';
 const STYLUS = 'stylus';
 const WATCHER = 'watcher';
 const DEFAULT = 'default';
-
-// type of file project
-const TYPE_FILE = '.js';
 
 // gulp TASKS
 
@@ -42,12 +41,11 @@ gulp.task(BROWSER_SYNC, () => {
         },
         notify: false
     });
-   gulp.watch("index.html").on('change', reload);
 });
 
 // script
 gulp.task(JAVA_SCRIPT, () => {
-  browserify({entries: `${path.app.js}app${TYPE_FILE}`, extensions: [TYPE_FILE], debug: true})
+  browserify({entries: `${path.app.js}app${TYPE_FILE}`, extensions: ['.js'], debug: true})
   .transform(babelify,{
     presets: ['@babel/env'],
     plugins: [
@@ -58,14 +56,15 @@ gulp.task(JAVA_SCRIPT, () => {
   .bundle()
   .pipe(plumber())
   .pipe(source('bundle.js'))
-  .pipe(gulp.dest(`${path.dist.js}`))
-  .pipe(livereliad.stream({once: true}));
+  .pipe(gulp.dest(path.dist.js))
+  .pipe(reload({stream: true}));
 });
 
 // stylus
 gulp.task(STYLUS, () => {
     gulp.src(`${path.app.styl}master.styl`)
         .pipe(plumber())
+        .pipe(sourcemaps.init())
         .pipe(stylus())
         .pipe(autoprefixer({
             browsers: [
@@ -81,14 +80,15 @@ gulp.task(STYLUS, () => {
             ],
             cascade: false
         }))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.dist.css))
-        .pipe(livereliad.stream({once: true}));
+        .pipe(reload({stream: true}));
 });
 
 // watcher
-gulp.task(WATCHER, () => {
-    gulp.watch(`${path.app.js}/**/*.js`, [JAVA_SCRIPT]);
-    gulp.watch(`${path.app.styl}/**/*.styl`, [STYLUS]);
+gulp.task( WATCHER, () => {
+    watch(`${path.app.styl}/**/*.styl`, () => gulp.start(STYLUS));
+    watch(`${path.app.js}/**/*.js`, () => gulp.start(JAVA_SCRIPT));
 });
 
 gulp.task(
