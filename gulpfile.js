@@ -14,13 +14,13 @@ const   sourcemaps = require('gulp-sourcemaps');
 const   livereliad = browserSync.create();
 const   reload = livereliad.reload;
 const path = {
-    app : {
-      styl: './src/stylus/',
-      js: './src/js/'
+    app: {
+        styl: './src/stylus/',
+        js: './src/js/'
     },
     dist: {
-      js: './js/',
-      css: './css/',
+        js: './js/',
+        css: './css/',
     }
 };
 
