@@ -32,6 +32,7 @@ const WATCHER = 'watcher';
 const DEFAULT = 'default';
 const TYPE_FILE = '.js'
 
+
 // gulp TASKS
 
 // Static server
