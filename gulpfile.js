@@ -30,6 +30,7 @@ const JAVA_SCRIPT = 'javascript';
 const STYLUS = 'stylus';
 const WATCHER = 'watcher';
 const DEFAULT = 'default';
+const TYPE_FILE = '.js'
 
 // gulp TASKS
 
@@ -45,7 +46,10 @@ gulp.task(BROWSER_SYNC, () => {
 
 // script
 gulp.task(JAVA_SCRIPT, () => {
-  browserify({entries: `${path.app.js}app${TYPE_FILE}`, extensions: ['.js'], debug: true})
+  browserify({
+      entries: `${path.app.js}app${TYPE_FILE}`,
+      extensions: ['.js'], debug: true
+    })
   .transform(babelify,{
     presets: ['@babel/env'],
     plugins: [
