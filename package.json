@@ -1,43 +1,43 @@
 {
-    "name": "boilerplatebulma",
-    "version": "0.0.1",
-    "description": "HTML5 Boilerplate & Bulma.io",
-    "main": "gulpfile.js",
-    "scripts": {
-      "dev": "gulp default"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io.git"
-    },
-    "author": "Sobchenyuk Andrey <cobchenyuk@gmail.com> (https://www.facebook.com/andreysobchenyuk)",
-    "license": "ISC",
-    "bugs": {
-      "url": "https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io/issues"
-    },
-    "homepage": "https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io#readme",
-    "dependencies": {
-      "babel-plugin-syntax-class-properties": "^6.13.0",
-      "babel-plugin-transform-class-properties": "^6.24.1",
-      "babelify": "^10.0.0",
-      "browser-sync": "^2.24.7",
-      "browserify": "^16.2.2",
-      "bulma": "^0.7.1",
-      "gulp-autoprefixer": "^4.1.0",
-      "gulp-sourcemaps": "^2.6.4",
-      "gulp-cli": "^2.0.1",
-      "gulp-plumber": "^1.2.0",
-      "gulp-requirejs": "^1.1.1",
-      "gulp-stylus": "^2.7.0",
-      "gulp-watch": "^5.0.1",
-      "normalize.css": "^8.0.0",
-      "vinyl-source-stream": "^2.0.0",
-      "gulp-html-extend": "^1.1.6"
-    },
-    "devDependencies": {
-      "@babel/core": "^7.0.1",
-      "@babel/preset-env": "^7.0.0",
-      "babel-plugin-transform-object-rest-spread": "^6.26.0",
-      "gulp": "^3.9.1"
-    }
+  "name": "boilerplatebulma",
+  "version": "0.0.1",
+  "description": "HTML5 Boilerplate & Bulma.io",
+  "main": "gulpfile.js",
+  "scripts": {
+    "dev": "gulp default"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io.git"
+  },
+  "author": "Sobchenyuk Andrey <cobchenyuk@gmail.com> (https://www.facebook.com/andreysobchenyuk)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io/issues"
+  },
+  "homepage": "https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io#readme",
+  "dependencies": {
+    "babel-plugin-syntax-class-properties": "^6.13.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babelify": "^10.0.0",
+    "browser-sync": "^2.24.7",
+    "browserify": "^16.2.2",
+    "bulma": "^0.7.1",
+    "gulp-autoprefixer": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-cli": "^2.0.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-requirejs": "^1.1.1",
+    "gulp-stylus": "^2.7.0",
+    "gulp-watch": "^5.0.1",
+    "normalize.css": "^8.0.0",
+    "vinyl-source-stream": "^2.0.0",
+    "gulp-html-extend": "^1.1.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.1",
+    "@babel/preset-env": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "gulp": "^3.9.1"
   }
+}
