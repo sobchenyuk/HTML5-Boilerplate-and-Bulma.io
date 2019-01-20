@@ -7,6 +7,8 @@ import plumber from 'gulp-plumber';
 import sourcemaps from 'gulp-sourcemaps';
 import watch from 'gulp-watch';
 import twig from 'gulp-twig';
+import concat from 'gulp-concat';
+import cssmin from 'gulp-cssmin';
 
 import stylus from 'gulp-stylus';
 import autoprefixer from 'gulp-autoprefixer';
@@ -29,7 +31,11 @@ const path = {
         js: './js/',
         css: './css/',
         html: './'
-    }
+    },
+    libCss: [
+        'node_modules/normalize.css/normalize.css',
+        'node_modules/bulma/css/bulma.min.css'
+    ]
 };
 
 
@@ -40,7 +46,10 @@ const HTML = 'html';
 const STYLUS = 'stylus';
 const WATCHER = 'watcher';
 const DEFAULT = 'default';
+
+// name task javascript
 const TYPE_FILE = '.js';
+const ARRAY_TYPE_FILE = [...TYPE_FILE];
 
 // Static server
 gulp.task(
@@ -58,7 +67,7 @@ gulp.task(
     JAVA_SCRIPT, () => {
     browserify({
         entries: `${path.app.js}app${TYPE_FILE}`,
-        extensions: [TYPE_FILE],
+        extensions: ARRAY_TYPE_FILE,
         debug: true,
         sourceMaps: true
     }).transform(babelify, {
@@ -108,6 +117,17 @@ gulp.task(
         .pipe(reload({stream: true}))
 );
 
+// concat min rename lib css
+gulp.task(
+    'lib:css', ()=> gulp.src(path.libCss)
+        .pipe(concat("lib.css"))
+        .pipe(cssmin())
+        .pipe(rename( {
+            suffix: ".min"
+        }))
+        .pipe(gulp.dest(path.dist.css))
+);
+
 gulp.task(
     WATCHER, () => {
     watch(`${path.app.styl}/**/*.styl`, () => gulp.start(STYLUS));
@@ -122,6 +142,7 @@ gulp.task(
         BROWSER_SYNC,
         STYLUS,
         JAVA_SCRIPT,
-        HTML
+        HTML,
+        'lib:css'
     ]
 );
