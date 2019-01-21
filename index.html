@@ -11,7 +11,7 @@
 		<!-- google fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 
-		<!-- bulma.io v0.7.1 && reset styles normalize.css v7.0.0 -->
+		<!-- reset styles normalize.css v7.0.0 -->
         <link rel="stylesheet" href="css/lib.min.css">
 		
 		<!-- styles by default, an empty file  -->
@@ -26,60 +26,6 @@
         <!--[if lte IE 9]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]-->
-
-        <div class="container" style="height: 100vh;display: flex; align-items: center; justify-content: center; flex-direction: column">
-          <img src="./HTML5-Boilerplate-and-Bulma.io.png" alt="">
-          <h1 style="text-align: center; font-size: 40px; font-weight: 700;">
-          Hi this is an updated version of the template 
-          <br> 
-          <i class="fab fa-amazon-pay"></i>  HTML5 Boilerplate &amp; Bulma.io
-        </h1>
-
-        <p style="text-align: left; margin-top: 1em; font-size: 30px;" >
-        
-          <a href="//necolas.github.io/normalize.css/" target="_blank">
-            reset styles normalize.css v7.0.0
-          </a> 
-          <br>
-          <a href="//bulma.io/" target="_blank">
-           bulma.io v0.7.1
-          </a>
-          <br>
-          <a href="//fontawesome.com/" target="_blank">
-           font-awesome v5.3.1
-          </a>
-        </p>
-
-        <code style="text-align: left; margin-top: 2em;">
-          // gulp  component
-          <br>
-          const   gulp = require('gulp');
-          <br>
-          const   browserSync = require('browser-sync');
-          <br>
-          const   stylus = require('gulp-stylus');
-          <br>
-          const   autoprefixer = require('gulp-autoprefixer');
-          <br>
-          const   plumber = require('gulp-plumber');
-          <br>
-          const   browserify = require('browserify');
-          <br>
-          const   babelify = require('babelify');
-          <br>
-          const   source = require('vinyl-source-stream');
-        </code>
-
-        <q style="text-align: left; margin-top: 1em;">
-          babel 7
-          <br>
-          import VARIABLE from "./module/index";
-          <br>
-          export default VARIABLE;
-        </q>
-
-        </div>
-        
 
         <div class="wrapper" id="app">
 
@@ -113,12 +59,11 @@
             <!-- end footer -->
         </div>
 
-        <script src="js/vendor/modernizr-3.5.0.min.js"></script>
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-		<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+
+        <script src="js/lib.min.js"></script>
+
         <script src="js/plugins.js"></script>
-		
-		<!-- script bulma.io v0.5.3 -->
+
         <script src="js/main.js"></script>
 		
         <script src="js/bundle.js"></script>
