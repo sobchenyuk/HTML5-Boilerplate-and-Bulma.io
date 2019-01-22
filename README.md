@@ -75,13 +75,13 @@ Indented code
 
 
 # Connected Modules
-###javascript module
+##javascript module
 ```sh
 jQuery JavaScript Library v3.3.1
 Modernizr v3
 Plugin console
 ```
-###style module
+##style module
 ```sh
 normalize.css v8.0.1
 ```
