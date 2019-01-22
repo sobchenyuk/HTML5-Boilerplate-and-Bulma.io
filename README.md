@@ -7,43 +7,72 @@ $ npm run dev OR gulp
 prod version
 $ npm run prod OR gulp build
 ```
+***
+| warning |
+| ------ |
+| Using styles or scripts in the template, turn them around with special tags.|
+| Example: |
+```
+<!DOCTYPE html>
+<html>
+<head>
 
+<!-- build:css -->
+	<link rel="stylesheet" href="css/your_style.css">
+	<link rel="stylesheet" href="css/your_style.css">
+	<link rel="stylesheet" href="css/your_style.css">
+<!-- endbuild -->
+
+</head>
+<body>
+
+<!-- build:js -->
+		<script src="css/your_javascript.js">
+		<script src="css/your_javascript.js">
+		<script src="css/your_javascript.js">
+<!-- endbuild -->
+
+</body>
+</html>
+```
+***
 ## gulpfile.babel.js
 
-```sh
-import gulp from 'gulp';
-import browserSync from 'browser-sync';
-import rename from 'gulp-rename';
-import plumber from 'gulp-plumber';
-import sourcemaps from 'gulp-sourcemaps';
-import watch from 'gulp-watch';
+Indented code
 
-import concat from 'gulp-concat';
-import cssmin from 'gulp-cssmin';
+	import gulp from 'gulp';
+	import browserSync from 'browser-sync';
+	import rename from 'gulp-rename';
+	import plumber from 'gulp-plumber';
+	import sourcemaps from 'gulp-sourcemaps';
+	import watch from 'gulp-watch';
+	
+	import concat from 'gulp-concat';
+	import cssmin from 'gulp-cssmin';
+	
+	import changed from 'gulp-changed';
+	
+	import stylus from 'gulp-stylus';
+	import sass from 'gulp-sass';
+	import autoprefixer from 'gulp-autoprefixer';
+	
+	import browserify from 'browserify';
+	import babelify from 'babelify';
+	import uglify from "gulp-uglify";
+	import source from "vinyl-source-stream";
+	import buffer from "vinyl-buffer";
+	
+	import twig from 'gulp-twig';
+	import prettify from 'gulp-html-prettify';
+	
+	import imagemin from 'gulp-imagemin';
+	import cache from 'gulp-cache';
+	import pngquant from 'imagemin-pngquant';
+	
+	import htmlreplace from 'gulp-html-replace';
+	
+	import rimraf from 'rimraf';
 
-import changed from 'gulp-changed';
-
-import stylus from 'gulp-stylus';
-import sass from 'gulp-sass';
-import autoprefixer from 'gulp-autoprefixer';
-
-import browserify from 'browserify';
-import babelify from 'babelify';
-import uglify from "gulp-uglify";
-import source from "vinyl-source-stream";
-import buffer from "vinyl-buffer";
-
-import twig from 'gulp-twig';
-import prettify from 'gulp-html-prettify';
-
-import imagemin from 'gulp-imagemin';
-import cache from 'gulp-cache';
-import pngquant from 'imagemin-pngquant';
-
-import htmlreplace from 'gulp-html-replace';
-
-import rimraf from 'rimraf';
-```
 
 # Connected Modules
 ###javascript module
