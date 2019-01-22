@@ -50,6 +50,7 @@ import rimraf from 'rimraf';
 ```sh
 jQuery JavaScript Library v3.3.1
 Modernizr v3
+Plugin console
 ```
 ###style module
 ```sh
