@@ -1,19 +1,11 @@
-## HTML5 Boilerplate &amp; Bulma.io NEW RELASE
-
-[![N|Solid](./HTML5-Boilerplate-and-Bulma.io.png)](https://www.facebook.com/HTML5BoilerplateandBulma.io)
-
-# Installation
-
-```sh
-$ git clone https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io.git
-$ cd HTML5-Boilerplate-and-Bulma.io
-$ npm i
-```
-
 # Gulp 
 
 ```sh
+dev version
 $ npm run dev OR gulp
+======================
+prod version
+$ npm run prod OR gulp build
 ```
 
 ## gulpfile.babel.js
@@ -25,20 +17,72 @@ import rename from 'gulp-rename';
 import plumber from 'gulp-plumber';
 import sourcemaps from 'gulp-sourcemaps';
 import watch from 'gulp-watch';
-import twig from 'gulp-twig';
+
 import concat from 'gulp-concat';
 import cssmin from 'gulp-cssmin';
 
+import changed from 'gulp-changed';
+
 import stylus from 'gulp-stylus';
+import sass from 'gulp-sass';
 import autoprefixer from 'gulp-autoprefixer';
 
 import browserify from 'browserify';
 import babelify from 'babelify';
-import source from 'vinyl-source-stream';
+import uglify from "gulp-uglify";
+import source from "vinyl-source-stream";
+import buffer from "vinyl-buffer";
+
+import twig from 'gulp-twig';
 import prettify from 'gulp-html-prettify';
+
+import imagemin from 'gulp-imagemin';
+import cache from 'gulp-cache';
+import pngquant from 'imagemin-pngquant';
+
+import htmlreplace from 'gulp-html-replace';
+
+import rimraf from 'rimraf';
 ```
 
-# gulp-twig
+# Connected Modules
+###javascript module
+```sh
+jQuery JavaScript Library v3.3.1
+Modernizr v3
+```
+###style module
+```sh
+normalize.css v8.0.1
+```
+
+#In the project are used
+```sh
+es6 | ECMAScript 6
+JS modules
+-----------------------------
+Syntax
+import defaultExport from "module-name"; 
+import * as name from "module-name"; 
+import { export } from "module-name"; 
+import { export as alias } from "module-name"; 
+import { export1 , export2 } from "module-name"; 
+import { export1 , export2 as alias2 , [...] } from "module-name"; 
+import defaultExport, { export [ , [...] ] } from "module-name"; 
+import defaultExport, * as name from "module-name"; 
+import "module-name";
+```
+
+++++++++++++++++++++++++++++++++++++++++++++++++
+# CSS preprocessors
+## STYLUS http://stylus-lang.com/
+## SASS https://sass-lang.com/guide
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# gulp-twig << template engine >>
 ## Usage
 ```sh
 {# index.twig #}

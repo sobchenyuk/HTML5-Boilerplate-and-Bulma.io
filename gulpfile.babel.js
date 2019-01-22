@@ -1,5 +1,6 @@
 "use strict";
 
+// components
 import gulp from 'gulp';
 import browserSync from 'browser-sync';
 import rename from 'gulp-rename';
@@ -9,6 +10,8 @@ import watch from 'gulp-watch';
 
 import concat from 'gulp-concat';
 import cssmin from 'gulp-cssmin';
+
+import changed from 'gulp-changed';
 
 import stylus from 'gulp-stylus';
 import sass from 'gulp-sass';
@@ -27,9 +30,12 @@ import imagemin from 'gulp-imagemin';
 import cache from 'gulp-cache';
 import pngquant from 'imagemin-pngquant';
 
+import htmlreplace from 'gulp-html-replace';
+
 import rimraf from 'rimraf';
 
 sass.compiler = require('node-sass');
+
 
 // gulp settings
 const livereliad = browserSync.create();
@@ -74,9 +80,11 @@ const path = {
 // name tasks
 const BROWSER_SYNC = 'browser-sync';
 const JAVA_SCRIPT = 'javascript';
-const HTML = 'html';
+const TWIG = 'twig';
 const STYLUS = 'stylus';
 const SASS = 'sass';
+const LIBS = 'libs';
+const BUILD = 'build';
 const WATCHER = 'watcher';
 const DEFAULT = 'default';
 
@@ -99,7 +107,6 @@ gulp.task(
         server: {
             baseDir: "./"
         },
-        open: false,
         host: 'localhost',
         port: 3000,
         logPrefix: "landing",
@@ -125,18 +132,13 @@ gulp.task(
         }).bundle()
             .on('error', (err) => errorAlert.bind(err))
             .pipe(source('bundle.js'))
-            // .pipe(buffer())
-            // .pipe(uglify())
-            // .pipe(rename( {
-            //     suffix: ".min"
-            // }))
             .pipe(gulp.dest(path.dist.js))
             .pipe(reload({stream: true}));
     });
 
 // HTML
 gulp.task(
-    HTML, () => gulp.src(`${path.app.twig}*.twig`)
+    TWIG, () => gulp.src(`${path.app.twig}*.twig`)
         .pipe(plumber())
         .pipe(twig({
             base: './src/views',
@@ -155,6 +157,7 @@ gulp.task(
 // stylus
 gulp.task(
     STYLUS, () => gulp.src(`${path.app.styl}master.styl`)
+        .pipe(changed(path.dist.css))
         .pipe(plumber())
         .pipe(sourcemaps.init().on('error', (err) => errorAlert.bind(err) ))
         .pipe(stylus().on('error', (err) => errorAlert.bind(err) ))
@@ -179,6 +182,7 @@ gulp.task(
 
 // sass
 gulp.task(SASS, () => gulp.src(`${path.app.sass}master.scss`)
+        .pipe(changed(path.dist.css))
         .pipe(plumber())
         .pipe(sourcemaps.init().on('error', (err) => errorAlert.bind(err) ))
         .pipe(sass.sync().on('error', (err) => errorAlert.bind(err) ))
@@ -225,7 +229,7 @@ gulp.task(
 );
 
 // libs initialization
-gulp.task('libs', ['lib:js', 'lib:css']);
+gulp.task(LIBS, ['lib:js', 'lib:css']);
 
 
 // WATCHER
@@ -234,8 +238,9 @@ gulp.task(
     watch(`${path.app.styl}/**/*.styl`, () => gulp.start(STYLUS));
     watch(`${path.app.sass}/**/*.scss`, () => gulp.start(SASS));
     watch(`${path.app.js}/**/*.js`, () => gulp.start(JAVA_SCRIPT));
-    watch(`${path.app.twig}/**/*.twig`, () => gulp.start(HTML));
+    // watch(`${path.app.twig}/**/*.twig`, () => gulp.start(TWIG));
     watch('./images/**/*.*', reload );
+    watch(['!./public/**/*.*', './**/*.html', './favicon.*', '!node_modules/**/*'], reload );
 });
 
 // DEFAULT
@@ -247,8 +252,8 @@ gulp.task(
         // STYLUS,
         SASS,
         JAVA_SCRIPT,
-        HTML,
-        'libs'
+        // TWIG,
+        LIBS
     ]
 );
 
@@ -256,7 +261,9 @@ gulp.task(
 // build tasks
 
 // clean build directory
-gulp.task('clean', (cb) => rimraf(path.build.public, cb));
+gulp.task('clean', (cb) => {
+    rimraf(path.build.public, cb)
+});
 
 // image:build
 gulp.task('image:build', () => {
@@ -272,9 +279,13 @@ gulp.task('image:build', () => {
 });
 
 // html:build
-gulp.task('html:build', () => {
-    gulp.src(['!./public/**/*.*', './**/*.html', './favicon.*', '!node_modules/**/*'])
+gulp.task(
+    'html:build', () => {gulp.src(['!./public/**/*.*', './**/*.html', './favicon.*', '!node_modules/**/*'])
         .pipe(plumber().on('error', (err) => errorAlert.bind(err) ))
+		.pipe(htmlreplace({
+			'css': 'css/bundle.min.css',
+			'js': 'js/bundle.min.js'
+		}))
         .pipe(gulp.dest(path.build.public));
 });
 
@@ -310,4 +321,4 @@ gulp.task(
 gulp.task('fonts:build', ()=> gulp.src(`${path.dist.fonts}**/*.*`).pipe(gulp.dest(path.build.fonts)));
 
 // run build
-gulp.task('build', ['fonts:build', 'css:build', 'js:build', 'html:build', 'image:build']);
+gulp.task(BUILD, ['fonts:build', 'css:build', 'js:build', 'html:build', 'image:build']);
