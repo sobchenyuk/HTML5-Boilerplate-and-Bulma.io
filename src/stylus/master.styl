@@ -1,2 +1,13 @@
 @import "parts/var"
 @import "parts/defaul-style"
+
+.wrapper
+  background-color aqua
+  &_header
+    background-color red
+    &__nav
+      background-color blue
+  &_main
+    background-color darkorange
+    @media screen and (min-width: 600px)
+      background-color red
