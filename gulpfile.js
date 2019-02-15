@@ -16,7 +16,6 @@ const   watch = require('gulp-watch');
 const   sourcemaps = require('gulp-sourcemaps');
 
 const   extender = require('./gulp-html-extend');
-const   fileinclude = require('gulp-file-include');
 
 // gulp settings
 const   livereliad = browserSync.create();
