@@ -7,9 +7,6 @@ const   autoprefixer = require('gulp-autoprefixer');
 const   concat = require('gulp-concat');
 const   cssmin = require('gulp-cssmin');
 
-
-const   errorHandler = require('gulp-error-handle');
-
 const   rename = require('gulp-rename');
 const   plumber = require('gulp-plumber');
 const   browserify = require('browserify');
@@ -18,7 +15,8 @@ const   source = require('vinyl-source-stream');
 const   watch = require('gulp-watch');
 const   sourcemaps = require('gulp-sourcemaps');
 
-const   extender = require('gulp-html-extend');
+const   extender = require('./gulp-html-extend');
+const   fileinclude = require('gulp-file-include');
 
 // gulp settings
 const   livereliad = browserSync.create();
@@ -53,26 +51,28 @@ const DEFAULT = 'default';
 const TYPE_FILE = '.js';
 const ARRAY_TYPE_FILE = [...TYPE_FILE];
 
-// error
-const onError = err => {
+// error message
+const errorAlert = err => {
+    console.log(err.toString());
+    this.emit("end");
+};
+function onError(err) {
     console.log(err);
-
     this.emit('end');
-};
-var swallowError = function(err) {
-    gulputil.log(err.toString());
-    this.emit('end');
-};
+}
 
 // gulp TASKS
 
 // Static server
 gulp.task(BROWSER_SYNC, () => {
   livereliad.init({
-        server: {
-            baseDir: "./"
-        },
-        notify: false
+      server: {
+          baseDir: "./"
+      },
+      host: 'localhost',
+      port: 3000,
+      logPrefix: "landing",
+      reloadDelay: 1500
     });
 });
 
@@ -91,7 +91,7 @@ gulp.task(JAVA_SCRIPT, () => {
         ]
     })
         .bundle()
-        .pipe(plumber())
+        .on('error', (err) => errorAlert.bind(err))
         .pipe(source('bundle.js'))
         .pipe(gulp.dest(path.dist.js))
         .pipe(reload({stream: true}));
@@ -126,7 +126,6 @@ gulp.task(STYLUS, () => {
 gulp.task(
     'lib:css', ()=> gulp.src(path.libCss)
         .pipe(concat("lib.css"))
-        .pipe(errorHandler())
         .pipe(cssmin())
         .pipe(rename( {
             suffix: ".min"
@@ -143,20 +142,18 @@ gulp.task(HTML, function () {
 
 
 // fileinclude
-gulp.task(FILE_INCLUDE, function() {
-    gulp.src([`${path.app.html}*.html`])
-        .pipe(plumber(function (error) {
-            console.log(error.message);
-            this.emit('end');
-        }))
+gulp.task(FILE_INCLUDE, function(done) {
+    return gulp.src([`${path.app.html}*.html`])
         .pipe(extender({
-            annotations:true,
-            verbose:false
+			annotations: true,
+			verbose: false,
+			root: './src/view'
         }))
-        .on('error', console.error.bind(console))
+        .on('error', (err) => errorAlert.bind(err))
         .pipe(gulp.dest('./'))
         .pipe(reload({stream: true}));
 });
+
 
 // watcher
 gulp.task( WATCHER, () => {
@@ -165,6 +162,7 @@ gulp.task( WATCHER, () => {
     watch(`${path.dist.html}`, () => gulp.start(HTML));
     watch(`${path.app.html}**/*.html`, () => gulp.start(FILE_INCLUDE));
 });
+
 
 gulp.task(
   DEFAULT,
