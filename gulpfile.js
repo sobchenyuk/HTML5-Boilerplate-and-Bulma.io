@@ -15,7 +15,7 @@ const   source = require('vinyl-source-stream');
 const   watch = require('gulp-watch');
 const   sourcemaps = require('gulp-sourcemaps');
 
-const   extender = require('./gulp-html-extend');
+const   extender = require('./html-extend');
 
 
 // gulp settings
