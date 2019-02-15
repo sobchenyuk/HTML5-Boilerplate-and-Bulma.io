@@ -1,8 +1,16 @@
 // gulp  component
 const   gulp = require('gulp');
 const   browserSync = require('browser-sync');
+
 const   stylus = require('gulp-stylus');
 const   autoprefixer = require('gulp-autoprefixer');
+const   concat = require('gulp-concat');
+const   cssmin = require('gulp-cssmin');
+
+
+const   errorHandler = require('gulp-error-handle');
+
+const   rename = require('gulp-rename');
 const   plumber = require('gulp-plumber');
 const   browserify = require('browserify');
 const   babelify = require('babelify');
@@ -10,7 +18,7 @@ const   source = require('vinyl-source-stream');
 const   watch = require('gulp-watch');
 const   sourcemaps = require('gulp-sourcemaps');
 
-const   fileinclude = require('gulp-file-include');
+const   extender = require('gulp-html-extend');
 
 // gulp settings
 const   livereliad = browserSync.create();
@@ -25,7 +33,11 @@ const path = {
         js: './js/',
         css: './css/',
         html: './*.html'
-    }
+    },
+    libCss: [
+        'node_modules/normalize.css/normalize.css',
+        'node_modules/bulma/css/bulma.min.css'
+    ]
 };
 
 // name tasks
@@ -36,7 +48,21 @@ const JAVA_SCRIPT = 'javascript';
 const STYLUS = 'stylus';
 const WATCHER = 'watcher';
 const DEFAULT = 'default';
+
+// name task javascript
 const TYPE_FILE = '.js';
+const ARRAY_TYPE_FILE = [...TYPE_FILE];
+
+// error
+const onError = err => {
+    console.log(err);
+
+    this.emit('end');
+};
+var swallowError = function(err) {
+    gulputil.log(err.toString());
+    this.emit('end');
+};
 
 // gulp TASKS
 
@@ -52,22 +78,23 @@ gulp.task(BROWSER_SYNC, () => {
 
 // script
 gulp.task(JAVA_SCRIPT, () => {
-  browserify({
-      entries: `${path.app.js}app${TYPE_FILE}`,
-      extensions: ['.js'], debug: true
+    browserify({
+        entries: `${path.app.js}app${TYPE_FILE}`,
+        extensions: ARRAY_TYPE_FILE,
+        debug: true,
+        sourceMaps: true
+    }).transform(babelify, {
+        presets: ['@babel/env'],
+        plugins: [
+            "syntax-class-properties",
+            "transform-class-properties"
+        ]
     })
-  .transform(babelify,{
-    presets: ['@babel/env'],
-    plugins: [
-      "syntax-class-properties",
-      "transform-class-properties"
-  ]
-  })
-  .bundle()
-  .pipe(plumber())
-  .pipe(source('bundle.js'))
-  .pipe(gulp.dest(path.dist.js))
-  .pipe(reload({stream: true}));
+        .bundle()
+        .pipe(plumber())
+        .pipe(source('bundle.js'))
+        .pipe(gulp.dest(path.dist.js))
+        .pipe(reload({stream: true}));
 });
 
 // stylus
@@ -95,7 +122,20 @@ gulp.task(STYLUS, () => {
         .pipe(reload({stream: true}));
 });
 
-gulp.task('html', function () {
+// concat min rename lib css
+gulp.task(
+    'lib:css', ()=> gulp.src(path.libCss)
+        .pipe(concat("lib.css"))
+        .pipe(errorHandler())
+        .pipe(cssmin())
+        .pipe(rename( {
+            suffix: ".min"
+        }))
+        .pipe(gulp.dest(path.dist.css))
+);
+
+
+gulp.task(HTML, function () {
     // Callback mode, useful if any plugin in the pipeline depends on the `end`/`flush` event
     return watch(`${path.dist.html}`, { ignoreInitial: false })
         .pipe(reload({stream: true}));
@@ -105,11 +145,15 @@ gulp.task('html', function () {
 // fileinclude
 gulp.task(FILE_INCLUDE, function() {
     gulp.src([`${path.app.html}*.html`])
-        .pipe(plumber())
-        .pipe(fileinclude({
-            prefix: '@@',
-            basepath: '@file'
+        .pipe(plumber(function (error) {
+            console.log(error.message);
+            this.emit('end');
         }))
+        .pipe(extender({
+            annotations:true,
+            verbose:false
+        }))
+        .on('error', console.error.bind(console))
         .pipe(gulp.dest('./'))
         .pipe(reload({stream: true}));
 });
@@ -129,7 +173,8 @@ gulp.task(
       BROWSER_SYNC,
       STYLUS,
       JAVA_SCRIPT,
-      FILE_INCLUDE
+      FILE_INCLUDE,
+      'lib:css'
     ]
 );
 
