@@ -2,7 +2,6 @@
 
 # dependencies
 /node_modules
-/gulp-html-extend/node_modules
 
 /.git
 /.idea
