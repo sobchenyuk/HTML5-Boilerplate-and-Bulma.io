@@ -7,13 +7,13 @@
 ```sh
 $ git clone https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io.git
 $ cd HTML5-Boilerplate-and-Bulma.io
-$ npm install
+$ npm install && npm run dev
 ```
 
 # Gulp 
 
 ```sh
-$ npm run dev
+$ npm run dev OR gulp default
 ```
 
 ## gulpfile.js
