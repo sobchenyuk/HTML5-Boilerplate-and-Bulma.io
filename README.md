@@ -21,12 +21,21 @@ $ npm run dev
 ```sh
 const   gulp = require('gulp');
 const   browserSync = require('browser-sync');
+
 const   stylus = require('gulp-stylus');
 const   autoprefixer = require('gulp-autoprefixer');
+const   concat = require('gulp-concat');
+const   cssmin = require('gulp-cssmin');
+
+const   rename = require('gulp-rename');
 const   plumber = require('gulp-plumber');
 const   browserify = require('browserify');
 const   babelify = require('babelify');
 const   source = require('vinyl-source-stream');
+const   watch = require('gulp-watch');
+const   sourcemaps = require('gulp-sourcemaps');
+
+const   extender = require('./html-extend');
 ```
 
 ## gulp-html-extend
