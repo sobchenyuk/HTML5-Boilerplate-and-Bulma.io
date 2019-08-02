@@ -8,7 +8,7 @@
 $ git clone https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io
 $ cd HTML5-Boilerplate-and-Bulma.io
 $ git checkout site_creation
-$ npm install & npm run dev
+$ npm install && npm run dev
 ```
 
 # Gulp 
