@@ -19,14 +19,19 @@ $ npm run dev
 ## gulpfile.js
 
 ```sh
-const   gulp = require('gulp');
-const   browserSync = require('browser-sync');
-const   stylus = require('gulp-stylus');
-const   autoprefixer = require('gulp-autoprefixer');
-const   plumber = require('gulp-plumber');
-const   browserify = require('browserify');
-const   babelify = require('babelify');
-const   source = require('vinyl-source-stream');
-```
+import gulp from 'gulp';
+import browserSync from 'browser-sync';
+import rename from 'gulp-rename';
+import plumber from 'gulp-plumber';
+import sourcemaps from 'gulp-sourcemaps';
+import watch from 'gulp-watch';
+import twig from 'gulp-twig';
+import concat from 'gulp-concat';
+import cssmin from 'gulp-cssmin';
 
-## gulp-html-extend
+import stylus from 'gulp-stylus';
+import autoprefixer from 'gulp-autoprefixer';
+
+import browserify from 'browserify';
+import babelify from 'babelify';
+import source from 'vinyl-source-stream';
