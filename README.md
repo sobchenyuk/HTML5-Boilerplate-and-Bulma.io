@@ -13,7 +13,7 @@ $ npm install
 
 # Gulp 
 
-'$ npm run dev OR gulp default'
+`$ npm run dev OR gulp default`
 
 ## gulpfile.js
 
