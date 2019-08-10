@@ -11,11 +11,11 @@ $ git checkout site_creation
 $ npm install && npm run dev
 ```
 
-# Gulp 
+# Gulp 3
 
 `$ npm run dev OR gulp default`
 
-## gulpfile.js
+## gulpfile.babel.js
 
 ```sh
 import gulp from 'gulp';
