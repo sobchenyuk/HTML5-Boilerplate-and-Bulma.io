@@ -10,7 +10,7 @@ $ cd HTML5-Boilerplate-and-Bulma.io
 $ npm install
 ```
 
-# Gulp 
+# Gulp 3
 
 ```sh
 $ npm run dev
