@@ -16,7 +16,7 @@ $ npm install && npm run dev
 $ npm run dev OR gulp default
 ```
 
-## gulpfile.js
+## gulpfile.babel.js
 
 ```sh
 import gulp from 'gulp';
