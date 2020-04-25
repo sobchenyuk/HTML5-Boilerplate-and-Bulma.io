@@ -1,0 +1,52 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="content">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, maximum-scale=5, minimum-scale=1.0">
+        <title>{{ title }} - HTML5 Boilerplate & Bulma.io</title>
+		
+        @include('layout.head')
+
+        @!section('style')
+
+    </head>
+    <body>
+    @!section('vars')
+
+        <div class="wrapper" id="app">
+
+            <!-- The header of the site -->
+            @include('elements.header')
+            <!-- The end caps of the website -->
+
+            <!-- main unit -->
+                <main>
+
+                    @!section('content')
+
+                    <!--Sidebar-->
+                    @include('elements.aside')
+                    <!-- End Sidebar-->
+
+                </main>
+            <!-- end main unit -->
+
+            <!-- footer -->
+            <footer></footer>
+            <!-- end footer -->
+        </div>
+
+        @include('layout.footer')
+
+        @!section('script')
+
+    </body>
+</html>
+
+<!-- font-awesome v5.3.1 -->
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+        integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB"
+        crossorigin="anonymous"></script>

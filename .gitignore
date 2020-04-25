@@ -2,9 +2,11 @@
 
 # dependencies
 /node_modules
+/public
 
 /.git
-/.idea
-.git/
-.idea/*
+.idea
+.idea/
+.idea/**/.*
+
 package-lock.json
