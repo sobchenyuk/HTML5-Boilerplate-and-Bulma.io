@@ -162,6 +162,7 @@ import "module-name";
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <title>Home Page - HTML5 Boilerplate & Bulma.io</title>
   </head>
   <body>
     <header class="header">
