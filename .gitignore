@@ -4,4 +4,8 @@
 /node_modules
 
 /.git
-/.idea
+.idea
+.idea/
+.idea/**/.*
+
+package-lock.json 
