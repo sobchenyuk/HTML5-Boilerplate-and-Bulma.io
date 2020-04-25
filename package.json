@@ -21,6 +21,7 @@
     "@babel/preset-env": "^7.2.3",
     "babel-plugin-syntax-class-properties": "^6.13.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "bulma": "^0.8.2",
     "gulp-autoprefixer": "*",
     "gulp-cache": "^1.1.0",
     "gulp-cached": "^1.1.1",

@@ -1,5 +1,7 @@
 "use strict";
 
+const fs = require('fs')
+
 // components
 import gulp from 'gulp';
 import browserSync from 'browser-sync';
@@ -37,15 +39,14 @@ import htmlreplace from 'gulp-html-replace';
 
 sass.compiler = require('node-sass');
 
-
 // gulp settings
 const livereliad = browserSync.create();
 const reload = livereliad.reload;
 const path = {
     app: {
         styl: './resources/assets/stylus/',
-        sass: './resources/assets/sass/',
-        less: './resources/assets/sass/',
+        scss: './resources/assets/scss/',
+        less: './resources/assets/less/',
         js: './resources/assets/js/',
         edge: './resources/views/',
         images: './public/img/',
@@ -59,7 +60,8 @@ const path = {
     },
     lib: {
         css: [
-            'node_modules/normalize.css/normalize.css'
+            'node_modules/normalize.css/normalize.css',
+            'node_modules/bulma/css/bulma.css'
         ],
         js: [
             'node_modules/modernizr/bin/modernizr.js',
@@ -83,7 +85,7 @@ const BROWSER_SYNC = 'browser-sync';
 const JAVA_SCRIPT = 'javascript';
 const EDGE = 'edge';
 const STYLUS = 'stylus';
-const SASS = 'sass';
+const SCSS = 'scss';
 const LIBS = 'libs';
 const BUILD = 'build';
 const WATCHER = 'watcher';
@@ -100,6 +102,35 @@ const errorAlert = err => {
     this.emit("end");
 };
 
+const removeFile = file => {
+    try {
+        fs.unlinkSync(file)
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+const pipeClearAfterActions = files => {
+
+    setTimeout(()=> {
+        try {
+
+            if ( typeof files === 'string' ) {
+                if (fs.existsSync(files)) {
+                    removeFile(files)
+                }
+            } else {
+                for ( let item of files ) {
+                    if (fs.existsSync(item)) {
+                        removeFile(item)
+                    }
+                }
+            }
+        } catch(err) {
+            console.error(err)
+        }
+    }, 1000)
+}
 
 // Static server
 gulp.task(
@@ -177,8 +208,8 @@ gulp.task(
         .pipe(reload({stream: true}))
 );
 
-// sass
-gulp.task(SASS, () => gulp.src(`${path.app.sass}all.scss`)
+// scss
+gulp.task(SCSS, () => gulp.src(`${path.app.scss}all.scss`)
         .pipe(changed(path.dist.css))
         .pipe(plumber())
         .pipe(sourcemaps.init().on('error', (err) => errorAlert.bind(err) ))
@@ -233,7 +264,7 @@ gulp.task(LIBS, ['lib:js', 'lib:css']);
 gulp.task(
     WATCHER, () => {
     watch(`${path.app.styl}/**/*.styl`, () => gulp.start(STYLUS));
-    watch(`${path.app.sass}/**/*.scss`, () => gulp.start(SASS));
+    watch(`${path.app.scss}/**/*.scss`, () => gulp.start(SCSS));
     watch(`${path.app.js}/**/*.js`, () => gulp.start(JAVA_SCRIPT));
     watch(`${path.app.edge}/**/*.edge`, () => gulp.start(EDGE));
     watch('./public/img/**/*.*', reload );
@@ -247,10 +278,10 @@ gulp.task(
         WATCHER,
         BROWSER_SYNC,
         // STYLUS,
-        SASS,
+        SCSS,
         JAVA_SCRIPT,
         EDGE,
-        LIBS
+        LIBS,
     ]
 );
 
@@ -295,23 +326,29 @@ gulp.task(
             suffix: ".min"
         }))
         .pipe(gulp.dest(path.build.css))
+        .on('end', () => {
+            pipeClearAfterActions([`${path.dist.css}lib.min.css`, `${path.dist.css}all.css`, `${path.dist.css}all.css.map`])
+        })
 );
 
 // js:build
 gulp.task(
-    'js:build', ()=> gulp.src([
-        `${path.dist.js}lib.min.js`,
-        `${path.dist.js}plugins.js`,
-        `${path.dist.js}main.js`,
-        `${path.dist.js}bundle.js`
-    ])
-        .pipe(concat("bundle.js"))
-        .pipe(buffer())
-        .pipe(uglify())
-        .pipe(rename( {
-            suffix: ".min"
-        }))
-        .pipe(gulp.dest(path.build.js))
+    'js:build', () => gulp.src([
+            `${path.dist.js}lib.min.js`,
+            `${path.dist.js}plugins.js`,
+            `${path.dist.js}main.js`,
+            `${path.dist.js}bundle.js`
+        ])
+            .pipe(concat("bundle.js"))
+            .pipe(buffer())
+            .pipe(uglify())
+            .pipe(rename({
+                suffix: ".min"
+            }))
+            .pipe(gulp.dest(path.build.js))
+            .on('end', () => {
+                pipeClearAfterActions([`${path.dist.js}lib.min.js`, `${path.dist.js}bundle.js`])
+            })
 );
 
 // fonts:build

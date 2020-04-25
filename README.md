@@ -1,4 +1,4 @@
-# Gulp 3
+# Gulp 3, Edge.js from Adonis.js, Less, SCSS
 
 ```sh
 dev version
@@ -109,7 +109,7 @@ import "module-name";
 
 # CSS preprocessors
 ## STYLUS http://stylus-lang.com/
-## SASS https://sass-lang.com/guide
+## SCSS https://sass-lang.com/guide
 
 +++++++++++++++++++++++++++++++++++++++++++++++++
 
