@@ -23,7 +23,8 @@ import uglify from "gulp-uglify";
 import source from "vinyl-source-stream";
 import buffer from "vinyl-buffer";
 
-import twig from 'gulp-twig';
+import gulpEdge from 'gulp-edgejs';
+
 import prettify from 'gulp-html-prettify';
 
 import imagemin from 'gulp-imagemin';
@@ -32,7 +33,7 @@ import pngquant from 'imagemin-pngquant';
 
 import htmlreplace from 'gulp-html-replace';
 
-import rimraf from 'rimraf';
+// import rimraf from 'rimraf';
 
 sass.compiler = require('node-sass');
 
@@ -42,18 +43,19 @@ const livereliad = browserSync.create();
 const reload = livereliad.reload;
 const path = {
     app: {
-        styl: './src/stylus/',
-        sass: './src/sass/',
-        js: './src/js/',
-        twig: './src/views/',
-        images: 'images/',
-        fonts: './fonts/'
+        styl: './resources/assets/stylus/',
+        sass: './resources/assets/sass/',
+        less: './resources/assets/sass/',
+        js: './resources/assets/js/',
+        edge: './resources/views/',
+        images: './public/img/',
+        fonts: './resources/assets/fonts/'
     },
     dist: {
-        js: './js/',
-        css: './css/',
-        html: './',
-        fonts: './fonts/'
+        js: './public/js/',
+        css: './public/css/',
+        html: './public',
+        fonts: './public/fonts/',
     },
     lib: {
         css: [
@@ -71,16 +73,15 @@ const path = {
         js: './public/js/',
         css: './public/css/',
         public: './public/',
-        images: './public/images',
+        images: './public/img',
         fonts: './public/fonts'
     }
 };
 
-
 // name tasks
 const BROWSER_SYNC = 'browser-sync';
 const JAVA_SCRIPT = 'javascript';
-const TWIG = 'twig';
+const EDGE = 'edge';
 const STYLUS = 'stylus';
 const SASS = 'sass';
 const LIBS = 'libs';
@@ -105,7 +106,7 @@ gulp.task(
     BROWSER_SYNC, () => {
     livereliad.init({
         server: {
-            baseDir: "./"
+            baseDir: "./public"
         },
         host: 'localhost',
         port: 3000,
@@ -138,25 +139,21 @@ gulp.task(
 
 // HTML
 gulp.task(
-    TWIG, () => gulp.src(`${path.app.twig}*.twig`)
-        .pipe(plumber())
-        .pipe(twig({
-            base: './src/views',
-            errorLogToConsole: true
-        }))
-        .pipe(prettify({
-            max_preserve_newlines: 1,
-            preserve_newlines: false,
-            space_before_conditional: false,
-            indent_with_tabs: true
-        }).on('error', (err) => errorAlert.bind(err) ))
-        .pipe(gulp.dest(path.dist.html))
-        .pipe(reload({stream: true}))
-);
+    EDGE, ()=>  gulp.src(`${path.app.edge}*.edge`)
+      .pipe( gulpEdge() )
+      .pipe(prettify({
+        max_preserve_newlines: 1,
+        preserve_newlines: false,
+        space_before_conditional: false,
+        indent_with_tabs: true
+    }).on('error', (err) => errorAlert.bind(err) ))
+      .pipe(gulp.dest('./public'))
+      .pipe(reload({stream: true}))
+  );
 
 // stylus
 gulp.task(
-    STYLUS, () => gulp.src(`${path.app.styl}master.styl`)
+    STYLUS, () => gulp.src(`${path.app.styl}all.styl`)
         .pipe(changed(path.dist.css))
         .pipe(plumber())
         .pipe(sourcemaps.init().on('error', (err) => errorAlert.bind(err) ))
@@ -181,7 +178,7 @@ gulp.task(
 );
 
 // sass
-gulp.task(SASS, () => gulp.src(`${path.app.sass}master.scss`)
+gulp.task(SASS, () => gulp.src(`${path.app.sass}all.scss`)
         .pipe(changed(path.dist.css))
         .pipe(plumber())
         .pipe(sourcemaps.init().on('error', (err) => errorAlert.bind(err) ))
@@ -238,8 +235,8 @@ gulp.task(
     watch(`${path.app.styl}/**/*.styl`, () => gulp.start(STYLUS));
     watch(`${path.app.sass}/**/*.scss`, () => gulp.start(SASS));
     watch(`${path.app.js}/**/*.js`, () => gulp.start(JAVA_SCRIPT));
-    // watch(`${path.app.twig}/**/*.twig`, () => gulp.start(TWIG));
-    watch('./images/**/*.*', reload );
+    watch(`${path.app.edge}/**/*.edge`, () => gulp.start(EDGE));
+    watch('./public/img/**/*.*', reload );
     watch(['!./public/**/*.*', './**/*.html', './favicon.*', '!node_modules/**/*'], reload );
 });
 
@@ -252,7 +249,7 @@ gulp.task(
         // STYLUS,
         SASS,
         JAVA_SCRIPT,
-        // TWIG,
+        EDGE,
         LIBS
     ]
 );
@@ -260,10 +257,10 @@ gulp.task(
 
 // build tasks
 
-// clean build directory
-gulp.task('clean', (cb) => {
-    rimraf(path.build.public, cb)
-});
+// // clean build directory
+// gulp.task('clean', (cb) => {
+//     rimraf(path.build.public, cb)
+// });
 
 // image:build
 gulp.task('image:build', () => {
@@ -280,7 +277,7 @@ gulp.task('image:build', () => {
 
 // html:build
 gulp.task(
-    'html:build', () => {gulp.src(['!./public/**/*.*', './**/*.html', './favicon.*', '!node_modules/**/*'])
+    'html:build', () => {gulp.src(['./public/**/*.html', './favicon.*', '!node_modules/**/*'])
         .pipe(plumber().on('error', (err) => errorAlert.bind(err) ))
 		.pipe(htmlreplace({
 			'css': 'css/bundle.min.css',
@@ -291,7 +288,7 @@ gulp.task(
 
 // css:build
 gulp.task(
-    'css:build', ()=> gulp.src([`${path.dist.css}lib.min.css`, `${path.dist.css}master.css`])
+    'css:build', ()=> gulp.src([`${path.dist.css}lib.min.css`, `${path.dist.css}all.css`])
         .pipe(concat("bundle.css"))
         .pipe(cssmin())
         .pipe(rename( {
