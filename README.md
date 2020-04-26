@@ -1,4 +1,4 @@
-# Gulp 3, Edge.js from Adonis.js, Less, SCSS
+# Gulp 3, Edge.js from Adonis.js, Stylus, SCSS
 
 ```sh
 dev version
