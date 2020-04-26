@@ -1,3 +1,5 @@
+[![GitHub stars](https://img.shields.io/github/stars/sobchenyuk/HTML5-Boilerplate-and-Bulma.io.svg?style=social&label=Star&maxAge=2592000)](https://github.com/sobchenyuk/HTML5-Boilerplate-and-Bulma.io/stargazers/)
+
 # Gulp 3, Edge.js from Adonis.js, Stylus, SCSS
 
 ```sh
