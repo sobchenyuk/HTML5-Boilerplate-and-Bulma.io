@@ -40,8 +40,8 @@ import htmlreplace from 'gulp-html-replace';
 sass.compiler = require('node-sass');
 
 // gulp settings
-const livereliad = browserSync.create();
-const reload = livereliad.reload;
+const liveReload = browserSync.create();
+const reload = liveReload.reload;
 const path = {
     app: {
         styl: './resources/assets/stylus/',
@@ -135,7 +135,7 @@ const pipeClearAfterActions = files => {
 // Static server
 gulp.task(
     BROWSER_SYNC, () => {
-    livereliad.init({
+    liveReload.init({
         server: {
             baseDir: "./public"
         },
