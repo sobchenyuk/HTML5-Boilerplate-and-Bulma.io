@@ -17,7 +17,6 @@ import changed from 'gulp-changed';
 
 import stylus from 'gulp-stylus';
 import sass from 'gulp-sass';
-import autoprefixer from 'gulp-autoprefixer';
 
 import browserify from 'browserify';
 import babelify from 'babelify';
@@ -189,20 +188,6 @@ gulp.task(
         .pipe(plumber())
         .pipe(sourcemaps.init().on('error', (err) => errorAlert.bind(err) ))
         .pipe(stylus().on('error', (err) => errorAlert.bind(err) ))
-        .pipe(autoprefixer({
-            browsers: [
-                'last 2 version',
-                'Chrome >= 20',
-                'Firefox >= 20',
-                'Opera >= 12',
-                'Android 2.3',
-                'Android >= 4',
-                'iOS >= 6',
-                'Safari >= 6',
-                'Explorer >= 8'
-            ],
-            cascade: false
-        }))
         .pipe(sourcemaps.write('.').on('error', (err) => errorAlert.bind(err) ))
         .pipe(gulp.dest(path.dist.css))
         .pipe(reload({stream: true}))
@@ -214,20 +199,6 @@ gulp.task(SCSS, () => gulp.src(`${path.app.scss}all.scss`)
         .pipe(plumber())
         .pipe(sourcemaps.init().on('error', (err) => errorAlert.bind(err) ))
         .pipe(sass.sync().on('error', (err) => errorAlert.bind(err) ))
-        .pipe(autoprefixer({
-            browsers: [
-                'last 2 version',
-                'Chrome >= 20',
-                'Firefox >= 20',
-                'Opera >= 12',
-                'Android 2.3',
-                'Android >= 4',
-                'iOS >= 6',
-                'Safari >= 6',
-                'Explorer >= 8'
-            ],
-            cascade: false
-        }))
         .pipe(sourcemaps.write('.').on('error', (err) => errorAlert.bind(err) ))
         .pipe(gulp.dest(path.dist.css))
         .pipe(reload({stream: true}))
