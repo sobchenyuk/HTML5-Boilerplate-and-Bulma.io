@@ -155,7 +155,7 @@ gulp.task(
             sourcemaps: true
 
         }).transform(babelify, {
-            presets: ['@babel/env'],
+            presets: ['@babel/preset-env'],
             plugins: [
                 "syntax-class-properties",
                 "transform-class-properties"
