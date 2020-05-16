@@ -22,7 +22,6 @@
     "babel-plugin-syntax-class-properties": "^6.13.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "bulma": "^0.8.2",
-    "gulp-autoprefixer": "*",
     "gulp-cache": "^1.1.0",
     "gulp-cached": "^1.1.1",
     "gulp-concat": "^2.6.1",
@@ -56,5 +55,16 @@
     "gulp-watch": "^5.0.1",
     "node-sass": "^4.11.0",
     "vinyl-source-stream": "^2.0.0"
-  }
+  },
+    "browserslist": [
+    "last 2 version",
+    "Chrome >= 20",
+    "Firefox >= 20",
+    "Opera >= 12",
+    "Android 2.3",
+    "Android >= 4",
+    "iOS >= 6",
+    "Safari >= 6",
+    "Explorer >= 8"
+  ]
 }
